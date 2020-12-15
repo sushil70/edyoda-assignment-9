@@ -64,7 +64,7 @@ $(document).ready(() => {
                 var comparingFinder = comparingCollectedData.search(searchingString)
 
                 if(comparingFinder >= 0){
-                    const createdAfterSearch = `<tr class="data-row" id="${data.id}">
+                    const createdAfterSearch = `<tr class="data-row" id="${data[i].id}">
                     <td class="column1">${data[i].id}</td>
                     <td class="column2">${data[i].firstName}</td>
                     <td class="column3">${data[i].lastName}</td>
@@ -74,6 +74,20 @@ $(document).ready(() => {
                     $("tbody").append(createdAfterSearch)
                 }
             }
+
+            $('.data-row').click(function () {
+
+                $('#info-content').css("display", "block")
+                $('.data-row').removeClass("active")
+                $(this).addClass("active")
+                for (var i = 0; i < dataCollected.length; i++) {
+                    if(data[i].id == this.id){
+                        $('#info-content').html(`<div><b>User selected:</b> ${data[i].firstName} ${data[i].lastName}</div><div><b>Description: </b><textarea cols="50" rows="5" readonly>${data[i].description}</textarea></div><div><b>Address:</b> ${data[i].address.streetAddress}</div><div><b>City:</b> ${data[i].address.city}</div><div><b>State:</b> ${data[i].address.state}<div><div><b>Zip:</b> ${data[i].address.zip}</div>`);
+                    }
+                }
+    
+            })
+
         })
     });
 })
